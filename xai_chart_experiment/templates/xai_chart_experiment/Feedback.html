@@ -1,0 +1,49 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+Feedback #{{ subsession.round_number }}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="card bg-light instructions">
+    <div class="card-body">
+
+        <h4>Forecasting accuracy <font size="2">(Metric used: Absolute Percentage Error)</font></h4>
+        <br/>
+        <table class="table">
+            Actual value: {{ fcst_actual }}
+            <br/>
+            <tr>
+                <td></td>
+                <td>Initial forecast ({{ player.F1_Initial }})</td>
+                <td>Final forecast ({{ player.F1_Revised }})</td>
+                <td>ML algorithm ({{ ml_prediction }})</td>
+
+            </tr>
+            <tr>
+                <td>This round</td>
+                <td>{{ ape_round_rounded }}%</td>
+                <td>{{ ape_round_rev_rounded }}%</td>
+                <td>{{ ape_round_ml_rounded }}%</td>
+
+            </tr>
+            <tr>
+                <td>Accumulated</td>
+                <td>{{ mape_rounded }}%</td>
+                <td>{{ mape_rev_rounded }}%</td>
+                <td>{{ mape_ml_rounded }}%</td>
+
+            </tr>
+        </table>
+
+
+
+    </div>
+</div>
+
+
+    {% next_button %}
+{% endblock %}

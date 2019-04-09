@@ -1,0 +1,76 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block title %}
+    Final Accuracy
+{% endblock %}
+
+{% block content %}
+
+    <style>
+        table#t01, table#t01 thead, table#t01 td, table#t01 tr{
+            border: 1px solid black;
+            font-size:93%
+        }
+    </style>
+    <p>
+        In the following table you can see the randomly drawn rounds, your accuracies of the final prediction and the
+        final average accuracy.
+    </p>
+
+    <table class="table", id="t01">
+                <tr>
+                    <th>Round</th>
+                    <th>Accuracy</th>
+                </tr>
+                <tr>
+                    <td>{{ participant.vars.rounds.0 }} </td>
+                    <td>{{ participant.vars.payout.0 }}%</td>
+                </tr>
+                <tr>
+                    <td>{{ participant.vars.rounds.1 }} </td>
+                    <td>{{ participant.vars.payout.1 }}%</td>
+                </tr>
+                <tr>
+                    <td>{{ participant.vars.rounds.2 }} </td>
+                    <td>{{ participant.vars.payout.2 }}%</td>
+                </tr>
+                <tr>
+                    <td>{{ participant.vars.rounds.3 }} </td>
+                    <td>{{ participant.vars.payout.3 }}%</td>
+                </tr>
+                <tr>
+                    <td>{{ participant.vars.rounds.4 }} </td>
+                    <td>{{ participant.vars.payout.4 }}%</td>
+                </tr>
+                <tr>
+                    <td><strong>Final average</strong> </td>
+                    <td><strong>{{ participant.vars.payout_total }}%</strong></td>
+                </tr>
+
+    </table>
+
+    <h5><u>Important</u></h5>
+    <p>
+        Please <strong>note down</strong> your final average accuracy on the same paper you wrote down your ID in the
+        beginning. Keep this paper with you or store it safely.<br/>
+        After all sessions of the experiment have been conducted, the top 5% will be contacted. You need to know your ID and
+        final average in order to receive the price.
+    </p>
+
+     <p>
+         If you already finished before the last one has finished, please <strong>stay seated and silent</strong>.
+         You may now occupy yourself silently and without disturbing other participants until everyone is done with the experiment.
+    </p>
+
+    <p>
+        <strong>Thank you!</strong>
+    </p>
+
+
+
+
+    {% next_button %}
+
+{% endblock %}

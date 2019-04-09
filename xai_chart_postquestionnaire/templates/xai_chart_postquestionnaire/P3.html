@@ -1,0 +1,20 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block title %}
+    Questionnaire 3/7
+{% endblock %}
+
+{% block content %}
+
+
+{% formfield player.experiment1%}
+{% formfield player.experiment2%}
+{% formfield player.knowledge1%}
+{% formfield player.knowledge2%}
+{% formfield player.experience%}
+
+    {% next_button %}
+
+{% endblock %}

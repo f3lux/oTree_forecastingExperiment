@@ -1,0 +1,35 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Example
+{% endblock %}
+
+{% block content %}
+
+    <p>
+        The image shows a sample of what the <strong>first decision stage</strong> will look like.
+        You will be able to interact with the entire data set in the graph later on.
+        Again, this is the same and only data set the ML algorithm can make use of. Also, as mentioned before, the time series you see comes from real
+        demand data of a product. You will eventually enter a forecast in the box at the bottom of the screen and advance
+        pressing the "Next" button.<br/>
+        In the <strong>second decision stage</strong> the screen will look similar, only then the ML algorithm's forecast
+        is presented as well. In this stage you will enter your final forecast and move on with the "Next" button.
+    </p>
+    <div class="card bg-light instructions">
+        <div class="card-body" style="text-align:center">
+
+            <img src="{% static "global/foo_0.png" %}" width="600" class="center"/>
+
+        </div>
+    </div>
+    <p>
+        After passing both decision stages, the prediction of one time step (one day) is done. The prediction procedure then starts
+        over and you will go through both decision stages again to make a forecast for the next time step. This will be repeated
+        for all 30 time steps.
+    </p>
+
+
+    {% next_button %}
+
+{% endblock %}

@@ -1,0 +1,269 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+Forecast #{{ subsession.round_number }} - Second decision stage
+{% endblock %}
+
+{% block content %}
+<!--style="width: 80rem;"-->
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<div id="container" style="width: 900px; height: 450px; margin: 0 auto"></div>
+
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<br/>
+<script>
+    $(function () {
+
+            Highcharts.stockChart('container', {
+                chart: {
+                    zoomType: 'x'
+                },
+
+                rangeSelector: {
+                    allButtonsEnabled: true,
+                    inputEnabled: false,
+                    buttons: [{
+                        type: 'month',
+                        count: 1,
+                        text: '1m',
+                    }, {
+                        type: 'month',
+                        count: 6,
+                        text: '6m',
+                    }, {
+                        type: 'ytd',
+                        text: 'YTD',
+                    }, {
+                        type: 'year',
+                        count: 1,
+                        text: '1y',
+                    }, {
+                        type: 'all',
+                        text: 'all',
+                    }],
+                    buttonTheme: {
+                        width: 30
+                    },
+                    selected: 4
+                },
+
+                    title: {
+                        text: 'Time series history'
+                    },
+
+
+                _navigator: {
+                    enabled: false
+                },
+
+
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: {
+                    title: {
+                        enabled: false,
+                        text: 'undefined'
+                    },
+                    opposite:false
+                },
+                legend: {
+                    enabled: false
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        marker: {
+                            enabled: false,
+                            <!--radius: 2-->
+                        },
+                        lineWidth: 2,
+                        states: {
+                            hover: {
+                                lineWidth: 2
+                            }
+                        },
+                        threshold: null,
+                        dataGrouping: {
+                            enabled: false
+                        }
+                    }
+                },
+
+
+                series: [{
+                    name: 'Value',
+                    color: '#1f77b4',
+                    data: {{ highcharts_series|json }},
+                    tooltip: {
+                        valueDecimals: 2
+                    }
+                }]
+    });
+});
+</script>
+
+<style>
+table#t01, table#t01 thead, table#t01 td, table#t01 tr{
+    border: 1px solid black;
+    font-size:93%
+}
+div.a {
+    text-indent:201px;
+}
+
+</style>
+<!--Plot the time series history-->
+<!--{{ plot_div|safe }}-->
+
+
+<br/>
+<br/>
+{% if player.ctrl_treat == 'control_fb' %}
+
+{% elif player.ctrl_treat == 'treatment1' %}
+    <table class="table", id="t01">
+                <thead>For creating a forecast, the ML algorithm takes the following 15 features into account: <br/><small>(Put your mouse over
+                    a feature to see its description)</small></thead>
+                <tr>
+                    <td><span title="Average of all previous data points">Avg_total</span></td>
+                    <td><span title="Average of all previous data points which have the same month value as the upcoming forecast to
+                    be made (e.g. all historical data points in January, no matter which year)">Avg_month</span></td>
+                    <td><span title="Actual demand value 1 day ago">1_day_ago</span></td>
+                    <td><span title="Actual demand value 4 days ago">4_days_ago</span></td>
+                    <td><span title="Actual demand value 1 week ago">1_week_ago</span></td>
+                </tr>
+                <tr>
+                    <td><span title="Average of all previous data points which have the same year value as the upcoming forecast to
+                    be made (e.g. all data points of 2017)">Avg_year</span></td>
+                    <td><span title="Average of all previous data points which have the same week value as the upcoming forecast to
+                    be made (e.g. all data points of calender week 42, no matter which year)">Avg_week</span></td>
+                    <td><span title="Actual demand value 2 days ago">2_days_ago</span></td>
+                    <td><span title="Actual demand value 5 days ago">5_days_ago</span></td>
+                    <td><span title="Actual demand value 1 month (4*7 days) ago">1_month_ago</span></td>
+                </tr>
+                <tr>
+                    <td><span title="Average of all previous data points which have the same quarter value as the upcoming forecast to
+                    be made (e.g. all data points in first quarter, no matter which year)">Avg_quarter</span></td>
+                    <td><span title="Average of all previous data points which have the same weekday value as the upcoming forecast to
+                    be made (e.g. all data points on a Monday, no matter which week, month, quarter or year)">Avg_weekday</span></td>
+                    <td><span title="Actual demand value 3 days ago">3_days_ago</span></td>
+                    <td><span title="Actual demand value 6 days ago">6_days_ago</span></td>
+                    <td><span title="Actual demand value 1 year (52*7 days) ago">1_year_ago</span></td>
+                </tr>
+
+</table>
+
+{% elif player.ctrl_treat == 'treatment2' or player.ctrl_treat == 'treatment3_fb' %}
+    <table class="table", id="t01">
+                <thead>For creating a forecast, the ML algorithm takes the following 15 features into account. In each cell,
+                in bold, you can see by how much the respective feature shifts the "base value" in order to arrive at the
+                forecast.
+                :<br/>
+                <small>(Put your mouse over a feature to see its description)</small></thead>
+                <tr>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Average of all previous data points">Avg_total </span>= {{ Avg_total }}</div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_Avg_total }}</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Average of all previous data points which have the same month value as the upcoming forecast to
+                    be made (e.g. all historical data points in January, no matter which year)">Avg_month = {{ Avg_month }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_Avg_month }}</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 1 day ago">1_day_ago = {{ 1_day_ago }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_1_day_ago }}</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 4 days ago">4_days_ago = {{ 4_days_ago }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_4_days_ago }}</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 1 week ago">1_week_ago = {{ 1_week_ago }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_1_week_ago }}</b></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Average of all previous data points which have the same year value as the upcoming forecast to
+                    be made (e.g. all data points of 2017)">Avg_year = {{ Avg_year }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_Avg_year }}</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Average of all previous data points which have the same week value as the upcoming forecast to
+                    be made (e.g. all data points of calender week 42, no matter which year)">Avg_week = {{ Avg_week }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_Avg_week }}</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 2 days ago">2_days_ago = {{ 2_days_ago }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_2_days_ago }}</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 5 days ago">5_days_ago = {{ 5_days_ago }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_5_days_ago }}</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 1 month (4*7 days) ago">1_month_ago = {{ 1_month_ago }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_1_month_ago }}</b></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Average of all previous data points which have the same quarter value as the upcoming forecast to
+                    be made (e.g. all data points in first quarter, no matter which year)">Avg_quarter = {{ Avg_quarter }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_Avg_quarter }}</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Average of all previous data points which have the same weekday value as the upcoming forecast to
+                    be made (e.g. all data points on a Monday, no matter which week, month, quarter or year)">Avg_weekday = {{ Avg_weekday }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_Avg_weekday }}</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 3 days ago">3_days_ago = {{ 3_days_ago }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_3_days_ago }}</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 6 days ago">6_days_ago = {{ 6_days_ago }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_6_days_ago }}</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 1 year (52*7 days) ago">1_year_ago = {{ 1_year_ago }}</span></div>
+                        <div style="float:right;text-align:right;"><b>{{ Shap_1_year_ago }}</b></div>
+                    </td>
+                </tr>
+
+    </table>
+    Output = 104.7 (base value) + ({{ Shap_Avg_total }}) + ({{ Shap_Avg_year }}) + ({{ Shap_Avg_quarter }})
+             + ({{ Shap_Avg_month }}) + ({{ Shap_Avg_week }}) + ({{ Shap_Avg_weekday }}) + ({{ Shap_1_day_ago }})
+             + ({{ Shap_2_days_ago }})
+    <div class="a">+ ({{ Shap_3_days_ago }}) + ({{ Shap_4_days_ago }}) + ({{ Shap_5_days_ago }})
+             + ({{ Shap_6_days_ago }}) + ({{ Shap_1_week_ago }}) + ({{ Shap_1_month_ago }}) + ({{ Shap_1_year_ago }})
+        &#8776 <b>{{ ml_prediction }}</b></div><br/>
+
+{% endif %}
+
+
+
+<table class="table">
+    <tr>
+        <td>Your initial forecast is: <br/>
+            <b>{{ player.F1_Initial }}</b></td>
+        <td>ML algorithm forecast: <small>(rounded to closest integer value)</small> <br/>
+            <b>{{ ml_prediction }}</b></td>
+        <td>{% formfield player.F1_Revised %} {% next_button %}</td>
+
+    </tr>
+</table>
+
+
+
+{% endblock %}

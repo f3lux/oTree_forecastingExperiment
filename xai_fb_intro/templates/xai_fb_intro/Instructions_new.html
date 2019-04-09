@@ -1,0 +1,70 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Instructions
+{% endblock %}
+
+{% block content %}
+
+
+    <br/>
+    <br/>
+
+<div class="card bg-light instructions">
+    <div class="card-body">
+        <h4>Initial Situation</h4>
+        <p>
+            You are part of a company and your role is to forecast the future demand of a product.
+            The product has a <strong>daily demand</strong>.<br/>
+            You are responsible to make sure that the demand is fulfilled to the best extent possible, the profitability
+            of your company depends on it.
+            In order to do so, you have to <strong>decide how much of the product</strong> (in pieces) should be
+            <strong>available for the next day</strong>.
+        </p>
+
+        <p>
+            Every day, there are <strong>two stages</strong> you have to go through for making a forecast.<br/>
+            In a <strong>first stage</strong> the actual demand of past days will be presented.<br/>
+            In a <strong>second stage</strong> additionally a Machine Learning (ML) algorithm forecast will be available.
+        </p>
+    </div>
+</div>
+
+<div class="card bg-light instructions">
+    <div class="card-body">
+        <h4>Task Description</h4>
+        <p>
+            Your task is to <strong>insert </strong> a numeric value as a <strong>forecast</strong> for the product
+            amount that should be available the next day.<br/>
+            In the first stage of each forecasting step you give your <strong>initial forecast</strong>. You are
+            allowed to take the additional information available into account.<br/>
+            In the second stage of each forecasting step you are allowed to enter a <strong>new forecast</strong>, after
+            the ML algorithm's forecast is displayed.<br/>
+            It is up to you whether you stay with the initial value (by entering the same value again) or to adjust. Again,
+            you are allowed to take all additional information you want into account.
+        </p>
+        <p>
+            In total you will plan for 30 days, so there are <strong>30 successive forecasting steps</strong> to be made.
+        </p>
+    </div>
+</div>
+
+<div class="card bg-light instructions">
+    <div class="card-body">
+        <h4>Payoff</h4>
+        <p>
+            Each participant starts with an <strong>initial payoff of {{ Constants.endowment }}</strong>.
+            Your <strong>decisions</strong> should be as close as possible to the real demand in order to <strong>increase your payoff</strong>.
+            Larger deviations from the real demand result in a smaller increase or add no value at all.<br/>
+        </p>
+        <p>
+            At the end of the game you will receive ... according to your absolute payoff
+            in relation to other participants absolute payoff.
+        </p>
+    </div>
+</div>
+
+    {% next_button %}
+
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Explaining the algorithm's output
+{% endblock %}
+
+{% block content %}
+
+<style>
+table#t01, table#t01 thead, table#t01 td, table#t01 tr{
+    border: 1px solid black;
+    font-size:93%
+}
+div.a {
+    text-indent:201px;
+}
+
+</style>
+
+    <p>
+        In order to understand how ML algorithms arrive at a certain output value (forecast), it can be helpful to determine the importance of
+        features used by the algorithm. The here introduced method, called SHAP, to determine feature importance for
+        complex ML algorithms is based on mathematical game theory. The method is capable of providing the <strong>feature importance
+        for the prediction of a single data point</strong> (e.g. the next one to predict) at a time and is hence a local method. The importance
+        assigned to a single feature can vary from data point to data point (from one day to predict to another day to predict).<br/>
+
+        <strong>In plain words, the method tries to answer how much a prediction was driven by the fact that a feature has a
+        certain value, instead of some baseline value.</strong>
+
+        <br/>
+        <br/>
+        <strong>As an example</strong>, the table below lists all 15 features with their current values. In bold you can see for each feature how much
+        the current prediction was driven by the fact that this feature currently has the shown value.
+        <ul>
+            <li>The method used tries to determine  <strong>how important a feature with its current value is in terms of making the
+                forecast you look at </strong>. It accordingly assigns the bold positive or negative values, you can see in the table, to the features.</li>
+            <li>In the equation below the table you see the term <strong>"base value"</strong>. This is the average
+                output value of the ML algorithm for all data points the algorithm was trained on. It is always the starting
+                point to make a forecast and in this case it has the value <strong>104.7</strong>.
+            </li>
+            <li>From this starting point, <strong>all bold values are summed up</strong> in order to arrive at the forecast made by the
+                ML algorithm. The <strong>"Output"</strong> is hence the <strong>forecast of the ML algorithm</strong> and amounts in this example case to
+                <strong>103</strong> (rounded to the closest integer).
+            </li>
+            <li>For another forecast, the importance of features may be different to what you see for this example forecast.
+                <strong>One feature might even "push"  the output to higher values in one case and to lower values in another case</strong>, depending on
+                the constellation of features with regard to the value they currently take on.
+            </li>
+
+        </ul>
+    </p>
+
+<table class="table", id="t01">
+                <thead>
+                <small>(Put your mouse over a feature to see its description)</small></thead>
+                <tr>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Average of all previous data points">Avg_total </span>= 104.2</div>
+                        <div style="float:right;text-align:right;"><b>-0.6</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Average of all previous data points which have the same month value as the upcoming forecast to
+                    be made (e.g. all historical data points in January, no matter which year)">Avg_month = 80.2</span></div>
+                        <div style="float:right;text-align:right;"><b>-2.8</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 1 day ago">1_day_ago = 104</span></div>
+                        <div style="float:right;text-align:right;"><b>0.1</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 4 days ago">4_days_ago = 108</span></div>
+                        <div style="float:right;text-align:right;"><b>0.3</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 1 week ago">1_week_ago = 106</span></div>
+                        <div style="float:right;text-align:right;"><b>1.0</b></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Average of all previous data points which have the same year value as the upcoming forecast to
+                    be made (e.g. all data points of 2017)">Avg_year = 87.3</span></div>
+                        <div style="float:right;text-align:right;"><b>1.0</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Average of all previous data points which have the same week value as the upcoming forecast to
+                    be made (e.g. all data points of calender week 42, no matter which year)">Avg_week = 79.6</span></div>
+                        <div style="float:right;text-align:right;"><b>-3.7</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 2 days ago">2_days_ago = 74</span></div>
+                        <div style="float:right;text-align:right;"><b>-1.3</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 5 days ago">5_days_ago = 79</span></div>
+                        <div style="float:right;text-align:right;"><b>0.4</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 1 month (4*7 days) ago">1_month_ago = 100</span></div>
+                        <div style="float:right;text-align:right;"><b>0.5</b></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Average of all previous data points which have the same quarter value as the upcoming forecast to
+                    be made (e.g. all data points in first quarter, no matter which year)">Avg_quarter = 82.7</span></div>
+                        <div style="float:right;text-align:right;"><b>-0.6</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Average of all previous data points which have the same weekday value as the upcoming forecast to
+                    be made (e.g. all data points on a Monday, no matter which week, month, quarter or year)">Avg_weekday = 116.4</span></div>
+                        <div style="float:right;text-align:right;"><b>7.3</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 3 days ago">3_days_ago = 78</span></div>
+                        <div style="float:right;text-align:right;"><b>-0.1</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 6 days ago">6_days_ago = 133</span></div>
+                        <div style="float:right;text-align:right;"><b>0.5</b></div>
+                    </td>
+                    <td>
+                        <div style="float:left;text-align:left;"><span title="Actual demand value 1 year (52*7 days) ago">1_year_ago = 90</span></div>
+                        <div style="float:right;text-align:right;"><b>-4.0</b></div>
+                    </td>
+                </tr>
+
+</table>
+    Output = 104.7 (base value) + (-0.6) + (1.0) + (-0.6)
+             + (-2.8) + (-3.7) + (7.3) + (0.1)
+             + (-1.3)
+    <div class="a">+ (-0.1) + (0.3) + (0.4)
+             + (0.5) + (1.0) + (0.5) + (-4.0)
+        &#8776 <b>103</b></div><br/>
+
+After pressing the "Next" button, <strong>you have to answer 3 understanding questions</strong> before moving on.
+    {% next_button %}
+
+{% endblock %}

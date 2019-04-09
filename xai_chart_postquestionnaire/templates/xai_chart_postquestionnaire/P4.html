@@ -1,0 +1,21 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block title %}
+    Questionnaire 4/7
+{% endblock %}
+
+{% block content %}
+
+<strong>These questions refer to the experiment.</strong>
+
+{% formfield player.interaction%}
+{% formfield player.adjustment_frequency%}
+{% formfield player.additional_info1%}
+{% formfield player.additional_info2%}
+{% formfield player.feedback%}
+
+    {% next_button %}
+
+{% endblock %}

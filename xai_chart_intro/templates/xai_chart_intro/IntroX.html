@@ -1,0 +1,54 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Explaining the algorithm's output
+{% endblock %}
+
+{% block content %}
+
+
+    <p>
+        In order to understand how ML algorithms arrive at a certain output value (forecast), it can be helpful to determine the importance of
+        features used by the algorithm. The here introduced method to determine feature importance for
+        complex ML algorithms is based on mathematical game theory. The method is capable of providing the <strong>feature importance
+        for a single data point</strong> (e.g. the next one to predict) at a time and is hence a local method. The importance
+        assigned to a single feature can vary from data point to data point (from one day to predict to another day to predict).
+        <br/>
+        <br/>
+        The graph below shows how the feature importance with the respective impact on the algorithm's output can be visualized.
+        <ul>
+            <li>The <strong>"base value"</strong> is the average output value of the ML algorithm for all data points trained on before the experiment. </li>
+            <li>The <strong>"output value"</strong> is the forecast of the ML algorithm. </li>
+            <li>Starting from the "base value", the <strong>features with arrows pointing to the right</strong> "push" the actual output to higher values. </li>
+            <li>Starting from the "base value", the <strong>features with arrows pointing to the left</strong> "push" the actual output to lower values. </li>
+            <li>All positive and negative "pushing" adds up and hence cancels out partly. <strong>The result of the "pushing" is where the "output value" ends up</strong>. </li>
+            <li>The <strong>importance of features</strong>, indicated by the bar segment size, <strong>is largest for the ones in the middle</strong> (next to the "output value"). The feature importance decreases towards both, the left and right end.</li>
+            <li>Only <strong>features of which the importance amounts to at least 10%</strong> of the total length of the black bar are depicted in written form. A single feature's importance might change from data point to data point. </li>
+
+
+        </ul>
+    </p>
+
+<img src="{% static "global/x/xplain.png" %}" width="950"/>
+
+
+    <p>
+        <h5>Example statements for the depicted graph</h5>
+        <ul>
+            <li>The "base value" is <strong>104.71</strong>. </li>
+            <li>The "output value" is <strong>101.85</strong>. </li>
+            <li>The <strong>6 features</strong> one can see amount to an <strong>importance of 10% or more</strong>. The other 9 features are not displayed as are less important.</li>
+            <li>The features <strong>"Avg_weekday"</strong>, <strong>"1_year_ago"</strong> and <strong>"1_week_ago"</strong>>
+                have values of <strong>100.52</strong>, <strong>102.0</strong> and <strong>110.0</strong> and "push" the output value to <strong>higher values</strong>.</li>
+            <li>The features <strong>"Avg_year"</strong>, <strong>"Avg_month"</strong> and <strong>"Avg_week"</strong>
+                have values of <strong>124.09</strong>, <strong>78.56</strong> and <strong>81.2</strong> and "push" the output value to <strong>lower values</strong>.</li>
+            <li>In total, the importance of features "pushing" to lower values is larger than that of the ones "pushing"
+                to higher values. Hence, the <strong>output value is below the base value</strong>.</li>
+        </ul>
+    </p>
+
+
+    {% next_button %}
+
+{% endblock %}

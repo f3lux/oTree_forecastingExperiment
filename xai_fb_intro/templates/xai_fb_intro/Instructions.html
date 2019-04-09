@@ -1,0 +1,58 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Instructions
+{% endblock %}
+
+{% block content %}
+
+
+    <br/>
+
+<p>
+    <strong>The task of this experiment is to make forecasts for the future demand of a product, with the objective to be as
+    accurate as possible. The accuracy of your forecasts affects your final payout.</strong>
+</p>
+
+
+        <p>
+            You are part of a company and your role is to <strong>forecast the future demand of a product</strong>. You don't have to
+            care about how much of the product you have in stock or if you would have the capacities in production
+            to meet the demand. You merely make a prediction of what the actual future demand will look like. Other people
+            in your company can make use of that information and the more accurate your prediction, the more profitable the company.<br/>
+
+
+        </p>
+
+        <p>
+            Every day, you make a forecast for the upcoming day lying ahead. There are
+            <strong>two decision stages</strong> you have to go through for making a single forecast. Only after going
+            through both decision stages the forecast for the next day is set and you move on to the forecast for the
+            day after.<br/>
+            In a <strong>first decision stage</strong> you make a forecast. The <strong>entire historical data</strong> of the product's
+            demand your company has collected is available for you to inspect. The time series of historical data is <strong>created from real data</strong>.<br/>
+            In a <strong>second decision stage</strong> you get the opportunity to revise your forecast and
+            make a final forecast. Next to historical data, there is a <strong>forecast of a machine learning (ML)
+            algorithm</strong> available. The ML algorithm is based on a model, created by experts.
+            The entire historical data you can see and inspect is <strong>exactly the same</strong> as the data available to the ML algorithm.
+            The ML algorithm was trained on four years of data.<br/>
+            In both decision stages you can enter a numerical value between 0 and 1000 as your forecast. In total you will make forecasts
+            for 30 days. The days you already made a forecast for become part of the historical
+            data.
+        </p>
+
+
+        <h4>Payout</h4>
+        <p>
+            At the end of the experiment 5 forecasting values (i.e. 5 days) will be drawn randomly from all your
+            final forecasting values. Their average accuracy determines the final accuracy. After all experiment
+            sessions have been conducted, the top 5% of the participants based on final accuracy will receive
+            a price.<br/>
+        </p>
+
+
+    After pressing the "Next" button, there's one more page before <strong>you have to answer 6 understanding questions</strong> in order to move on.
+    {% next_button %}
+
+{% endblock %}

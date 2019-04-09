@@ -1,0 +1,98 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Welcome to the experiment!
+{% endblock %}
+
+{% block content %}
+
+{% comment %}
+    <figure>
+        <img src= "{% static 'global/forecasting_welcome.jpg' %}" width="500"/>
+        <figcaption><a href="https://cdn.lynda.com/course/548711/548711-636280453223723330-16x9.jpg">Source</a></figcaption>
+    </figure>
+
+    <br/>
+    <br/>
+    <br/>
+{% endcomment %}
+    <br/>
+
+
+    <h5>General information</h5>
+
+
+    <p>
+        <ul>
+            <li>
+                Please open the provided link in a <strong>separate browser window</strong> where you only have this <strong>single tab open</strong>.
+            </li>
+            <li>
+                On every page you will find a "Next" button. Click the button to advance to the next page, <strong>you will not be able
+                to return to previous pages</strong>.
+            </li>
+            <li>
+                On several pages interactive graphs will be needed.  <strong>It takes a little while for these pages to load </strong>. Especially when the experiment is
+                played on the server. Please do not loose patience. If nothing appears for a very long time, please raise your hand.
+            </li>
+            <li>
+                Take the time you need to go through the experiment. Make sure you understand everything. I does not make sense to rush through the
+                experiment.  <strong>Only after the last participant finished, the experiment will be over </strong>.
+            </li>
+        </ul>
+
+
+    </p>
+
+
+    <p> <h6>Please adhere to the following rules:</h6>
+         <ul>
+                <li>
+                    During the experiment you are <strong>not allowed to use electronic devices</strong>, other than the computer you are
+                    sitting in front of.
+                </li>
+                <li>
+                    Please <strong>only use the programs and functions intended for the experiment</strong>.
+                </li>
+                <li>
+                    Please <strong>do not interact with other participants</strong> in any way.
+                </li>
+                <li>
+                    If you have a question, please raise your hand.
+                    I will then come to you and answer your question quietly. Please also <strong>ask your questions in a quite manner</strong>.
+                    If the question is relevant for all participants, I will repeat it loudly and answer it.
+                </li>
+        </ul>
+
+        If you <strong>violate these rules</strong> , I must <strong>exclude you from the experiment and the payout</strong>.
+     </p>
+    <br/>
+       <h5>Short description</h5>
+    <p>
+        The experiment will put you in a forecasting scenario. The task is to forecast future demand as accurate as possible.
+
+    </p>
+
+    <p>
+        Please <strong>read </strong> the instructions on the next page <strong> carefully </strong> to make sure
+        you understand them. Again, in case you have any questions, please raise your hand.
+    </p>
+
+
+       <h5><u>Important</u></h5>
+
+    <p>
+        Before you move on, please have a look at your address bar in your browser. The URL should read something like this <strong>example address</strong>
+        <i>"https://mysterious-reaches-36031.herokuapp.com/p/<strong>ab3cd4ef</strong>/intro1/Welcome/1/"</i>.<br/>
+        Please make sure to <strong>note down the 8 characters </strong>
+        displayed in your address <strong>now</strong>, which stand at the place of <strong>ab3cd4ef</strong> in the example address, on the piece of paper provided. This procedure
+        is important in order to keep the payout anonymous.
+    </p>
+
+
+
+
+    {% next_button %}
+
+{% endblock %}

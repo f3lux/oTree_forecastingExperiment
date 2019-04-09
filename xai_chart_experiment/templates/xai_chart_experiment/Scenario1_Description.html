@@ -1,0 +1,41 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+Forecast #1
+{% endblock %}
+
+{% block content %}
+
+    <img src="{% static "global/foo.png" %}" width="850"/>
+
+
+    <br/>
+    <br/>
+
+<div class="card bg-light instructions">
+    <div class="card-body">
+
+         <h4>The Task</h4>
+    <p>
+        This month your club organizes a summer festival. Once again, there are <strong> 250 </strong> people expected.
+
+    </p>
+
+    <p>
+        Here you see the consumption of wine at former festivals (in bottles):
+    </p>
+        <img src="{% static "global/TableJuly.png" %}"/>
+
+
+
+     </div>
+</div>
+
+    {% next_button %}
+{% endblock %}
+
+
+
+
+

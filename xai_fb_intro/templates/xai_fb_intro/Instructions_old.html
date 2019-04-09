@@ -1,0 +1,67 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Instructions
+{% endblock %}
+
+{% block content %}
+
+
+    <br/>
+    <br/>
+
+
+    <h4>Initial Situation</h4>
+    <p>
+        You own a private brewery.
+        There is one big customer you <strong>supply on a monthly basis</strong>.<br/>
+        You are responsible to make sure that the customer's demand is fulfilled to the best extent possible.<br/>
+        In order to do so, you have to <strong>decide how much beer</strong> (in liter) should be <strong>produced per month</strong>.
+    </p>
+
+    <p>
+        There are sources of <strong>supporting information</strong> that can be taken into account for the decision making process:
+        <ul>
+            <li>
+                Actual demand in past months.
+            </li>
+            <li>
+                Forecast made by your sales department.
+            </li>
+            <li>
+                Forecast made by an algorithm.
+            </li>
+        </ul>
+    </p>
+
+    <p>
+        Every month, there are <strong>two stages</strong> you have to go through for making a forecast.<br/>
+        In a <strong>first stage</strong> the actual demand of the five recent months and the sales forecast will be presented.<br/>
+        In a <strong>second stage</strong> additionally the algorithm forecast will be available.
+    </p>
+
+    <h4>Task Description</h4>
+    <p>
+        Your task is to <strong>insert </strong> a numeric value as a <strong>forecast</strong> for the amount of beer that will be produced for the next month to come.<br/>
+        In the first stage of each forecasting scenario you give your <strong>initial forecast</strong>.<br/>
+        In the second stage of each forecasting scenario you are allowed to enter a <strong>new forecast</strong>.<br/>
+        It is up to you to stay with the initial value (by entering the same value again) or to adjust.
+    <p>
+        In total you will plan for an entire year, so there are <strong>12 successive forecasting scenarios</strong> to be made.
+    </p>
+    </p>
+    <h4>Payoff</h4>
+    <p>
+        Each participant starts with an <strong>initial payoff of {{ Constants.endowment }}</strong>.
+        Your <strong>decisions</strong> should be as close as possible to the real demand in order to <strong>increase your payoff</strong>.
+        Larger deviations from the real demand result in a smaller increase or add no value at all.<br/>
+    </p>
+    <p>
+        At the end of the game you will receive ... according to your absolute payoff
+        in relation to other participants absolute payoff.
+    </p>
+
+    {% next_button %}
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+    Accuracy results
+{% endblock %}
+
+{% block content %}
+
+
+
+<table class="table", id="t01">
+                <thead>The following rounds were randomly drawn and are relevant for your payout. The drawn rounds are the same for every participant.</thead>
+                <tr>
+                    <td><span title="Average of all previous data points">Avg_total = {{ Avg_total }}</span></td>
+                    <td><span title="Average of all previous data points which have the same month value as the upcoming forecast to
+                    be made (e.g. all historical data points in January, no matter which year)">Avg_month = {{ Avg_month }}</span></td>
+
+                </tr>
+                <tr>
+                    <td><span title="Average of all previous data points which have the same year value as the upcoming forecast to
+                    be made (e.g. all data points of 2017)">Avg_year = {{ Avg_year }}</span></td>
+                    <td><span title="Average of all previous data points which have the same week value as the upcoming forecast to
+                    be made (e.g. all data points of calender week 42, no matter which year)">Avg_week = {{ Avg_week }}</span></td>
+
+                </tr>
+                <tr>
+                    <td><span title="Average of all previous data points which have the same quarter value as the upcoming forecast to
+                    be made (e.g. all data points in first quarter, no matter which year)">Avg_quarter = {{ Avg_quarter }}</span></td>
+                    <td><span title="Average of all previous data points which have the same weekday value as the upcoming forecast to
+                    be made (e.g. all data points on a Monday, no matter which week, month, quarter or year)">Avg_weekday = {{ Avg_weekday }}</span></td>
+
+                </tr>
+
+</table>
+    {% next_button %}
+{% endblock %}
+
+

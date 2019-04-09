@@ -1,0 +1,18 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Congratulations!
+{% endblock %}
+
+{% block content %}
+
+<p>
+    You have answered all understanding questions correctly.<br/>
+    Please click the button to continue.
+</p>
+
+    {% next_button %}
+
+{% endblock %}
+

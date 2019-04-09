@@ -1,0 +1,35 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+
+<div class="card bg-light instructions">
+    <div class="card-body">
+
+        <h4>Round summary #{{ subsession.round_number }}</font></h4>
+        <br/>
+        <table class="table">
+
+            <tr>
+                <td>Actual value: {{ fcst_actual }}
+                </td>
+                <td>Initial forecast: {{ player.F1_Initial }}</td>
+                <td>Final forecast: {{ player.F1_Revised }}</td>
+                <td>ML algorithm: {{ ml_prediction }}</td>
+
+            </tr>
+        </table>
+
+
+
+    </div>
+</div>
+
+
+    {% next_button %}
+{% endblock %}

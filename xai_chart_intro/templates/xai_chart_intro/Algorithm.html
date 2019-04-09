@@ -1,0 +1,48 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Information about the ML algorithm
+{% endblock %}
+
+{% block content %}
+
+
+    <p>
+        For creating a forecast, the ML algorithm takes the following <strong>15 features</strong> into account:
+        <ul>
+            <li><strong>Average values of historical data</strong> (6 features)</li>
+                <ul>
+                    <li><strong>Avg_total</strong>: Average of all previous data points</li>
+                    <li><strong>Avg_year</strong>: Average of all previous data points which have the same year value as the upcoming forecast to
+                    be made (e.g. all data points of 2017)</li>
+                    <li><strong>Avg_quarter</strong>: Average of all previous data points which have the same quarter value as the upcoming forecast to
+                    be made (e.g. all data points in first quarter, no matter which year) </li>
+                    <li><strong>Avg_month</strong>: Average of all previous data points which have the same month value as the upcoming forecast to
+                    be made (e.g. all historical data points in January, no matter which year)</li>
+                    <li><strong>Avg_week</strong>: Average of all previous data points which have the same week value as the upcoming forecast to
+                    be made (e.g. all data points of calender week 42, no matter which year)</li>
+                    <li><strong>Avg_weekday</strong>: Average of all previous data points which have the same weekday value as the upcoming forecast to
+                    be made (e.g. all data points on a Monday, no matter which week, month, quarter or year)</li>
+                </ul>
+            <li><strong>Past actual values</strong> (9 features)</li>
+                <ul>
+                    <li><strong>{1-6}_day(s)_ago</strong>: Actual demand value 1, 2, 3, 4, 5 or 6 day(s) ago (6 features) </li>
+                    <li><strong>1_week_ago</strong>: Actual demand value 1 week ago </li>
+                    <li><strong>1_month_ago</strong>: Actual demand value 1 month ago (4*7 days ago) </li>
+                    <li><strong>1_year_ago</strong>: Actual demand value 1 year ago (52*7 days ago) </li>
+                </ul>
+        </ul>
+    </p>
+
+{% comment %}
+    <h4>How good?</h4>
+    <p>
+        The algorithm was put together by thoughtful analysts and has an average accuracy of ~92%.
+        (TBD) "a sophisticated model, put together by thoughtful analysts"
+    </p>
+{% endcomment %}
+
+    {% next_button %}
+
+{% endblock %}

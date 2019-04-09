@@ -1,0 +1,134 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+Forecast #{{ subsession.round_number }} - First decision stage
+{% endblock %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<div id="container" style="width: 900px; height: 450px; margin: 0 auto"></div>
+
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<br/>
+<script>
+    $(function () {
+
+            Highcharts.stockChart('container', {
+                chart: {
+                    zoomType: 'x'
+                },
+
+                rangeSelector: {
+                    allButtonsEnabled: true,
+                    inputEnabled: false,
+                    buttons: [{
+                        type: 'month',
+                        count: 1,
+                        text: '1m',
+                    }, {
+                        type: 'month',
+                        count: 6,
+                        text: '6m',
+                    }, {
+                        type: 'ytd',
+                        text: 'YTD',
+                    }, {
+                        type: 'year',
+                        count: 1,
+                        text: '1y',
+                    }, {
+                        type: 'all',
+                        text: 'all',
+                    }],
+                    buttonTheme: {
+                        width: 30
+                    },
+                    selected: 4
+                },
+
+                    title: {
+                        text: 'Time series history'
+                    },
+
+
+                _navigator: {
+                    enabled: false
+                },
+
+
+                xAxis: {
+                    type: 'datetime'
+                },
+                yAxis: {
+                    title: {
+                        enabled: false,
+                        text: 'undefined'
+                    },
+                    opposite:false
+                },
+                legend: {
+                    enabled: false
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        marker: {
+                            enabled: false,
+                            <!--radius: 2-->
+                        },
+                        lineWidth: 2,
+                        states: {
+                            hover: {
+                                lineWidth: 2
+                            }
+                        },
+                        threshold: null,
+                        dataGrouping: {
+                            enabled: false
+                        }
+                    }
+                },
+
+
+                series: [{
+                    name: 'Value',
+                    color: '#1f77b4',
+                    data: {{ highcharts_series|json }},
+                    tooltip: {
+                        valueDecimals: 2
+                    }
+                }]
+    });
+});
+</script>
+
+
+
+{% comment %}
+{{ plot_div|safe }}
+<iframe width="900" height="500" frameborder="0" scrolling="no" src="{{  iframe_str }}"></iframe>
+{% endcomment %}
+{% formfield player.F1_Initial %}
+{% next_button %}
+{% comment %}
+<table class="table">
+    <tr>
+        <td>{% formfield player.F1_Initial %} {% next_button %}</td>
+
+    </tr>
+</table>
+{% endcomment %}
+
+
+
+
+
+
+{% endblock %}

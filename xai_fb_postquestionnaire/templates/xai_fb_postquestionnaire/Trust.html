@@ -1,0 +1,37 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block title %}
+    Questionnaire
+{% endblock %}
+
+{% block content %}
+    <p>
+        Please answer the following questions <strong>truthfully</strong> and provide
+        as <strong>detailed information</strong> as possible in order
+        to help the researcher in understanding your decisions.
+    </p>
+    <p>
+        All data will be kept <strong> anonymous </strong> and is only used for the researcher's thesis. <br/>
+        It is not possible to infer from answers entered to the individuals that gave the answers.
+    </p>
+
+
+
+
+{% formfield player.algorithm_insights%}
+
+
+
+{% if player.ctrl_treat == 'control' %}
+    {% formfield player.algorithm_insights1%}
+{% elif player.ctrl_treat == 'treatment' %}
+    {% formfield player.algorithm_insights2%}
+{% else %}
+    Didn't work
+{% endif %}
+
+    {% next_button %}
+
+{% endblock %}

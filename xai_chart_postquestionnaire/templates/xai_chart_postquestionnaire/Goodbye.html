@@ -1,0 +1,38 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Thank you very much for your participation!
+{% endblock %}
+
+{% block content %}
+
+
+     <p>
+         <br/>
+         <br/>
+        To not affect the judgment of colleagues that will take part in the experiment later,
+        please<br/>
+         <strong>keep the information </strong> regarding the experiment (the design, the questions etc.) to yourself.
+
+     </p>
+    <br/>
+
+     <p>
+        Thank you and have a great day!
+     </p>
+
+        <h5><u>Important</u></h5>
+    <p>
+        Please click on the "Next" button in order to see your <strong> final accuracy</strong>  which is relevant for your payout. It is
+        essential that you note down the final accuracy on your paper together with your ID as described on the upcoming
+        last page.
+    </p>
+
+
+
+    {% next_button %}
+
+{% endblock %}
+
+

@@ -1,0 +1,33 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block title %}
+    Questionnaire
+{% endblock %}
+
+{% block content %}
+    <p>
+        Please answer the following questions <strong>truthfully</strong> and provide
+        as <strong>detailed information</strong> as possible in order
+        to help the researcher in understanding your decisions.
+    </p>
+    <p>
+        All data will be kept <strong> anonymous </strong> and is only used for the researcher's thesis. <br/>
+        It is not possible to infer from answers entered to the individuals that gave the answers.
+    </p>
+
+
+
+
+{% formfield player.algorithm_insights%}
+{% formfield player.algorithm_insights2%}
+{% formfield player.algorithm_insights5%}
+{% formfield player.algorithm_insights6%}
+{% formfield player.algorithm_insights7%}
+{% formfield player.algorithm_insights8%}
+
+
+    {% next_button %}
+
+{% endblock %}

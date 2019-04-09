@@ -1,0 +1,25 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    {% if player.ctrl_treat == 'treatment' %}
+        Congratulations!
+    {% endif %}
+
+{% endblock %}
+
+{% block content %}
+
+<p>
+
+    {% if player.ctrl_treat == 'treatment' %}
+        You have answered all understanding questions correctly.<br/>
+    {% endif %}
+    Now you know everything you need to know to move on.<br/>
+    Please click the button to start the forecasting procedure.
+</p>
+
+    {% next_button %}
+
+{% endblock %}
+

@@ -1,0 +1,28 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block title %}
+    Questionnaire
+{% endblock %}
+
+{% block content %}
+    <p>
+        Please answer the following questions <strong>truthfully</strong> and provide
+        as <strong>detailed information</strong> as possible in order
+        to help the researcher in understanding your decisions.
+    </p>
+    <p>
+        All data will be kept <strong> anonymous </strong> and is only used for the researcher's thesis. <br/>
+    </p>
+
+
+
+{% formfield player.interaction%}
+{% formfield player.adjustment_frequency%}
+{% formfield player.additional_info1%}
+{% formfield player.additional_info2%}
+{% formfield player.feedback%}
+    {% next_button %}
+
+{% endblock %}

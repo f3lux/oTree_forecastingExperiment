@@ -1,0 +1,93 @@
+{% extends "global/Page.html" %}
+{% load otree %}
+
+{% block title %}
+Forecast #{{ subsession.round_number }} - Revision
+{% endblock %}
+
+{% block content %}
+
+<div class="card bg-light instructions">
+    <div class="card-body">
+
+         <h4>The Task</h4>
+    <p>
+        The machine learning algorithm introduced in the beginning returns its forecast on the screen. <br/>
+        You have the option to revise your forecast.
+
+    </p>
+     </div>
+</div>
+
+<br/>
+<br/>
+
+<div class="card bg-light instructions">
+    <div class="card-body">
+    <p>
+        Here you can see the last 30 days of the time series. In orange appear the data points that had to be predicted in your
+        forecasting process.
+    </p>
+
+
+    <img src="{% static img_str %}" width="850"/>
+
+     </div>
+</div>
+
+
+<div class="card bg-light instructions">
+    <div class="card-body">
+
+    <p>
+        For creating a forecast, the algorithm takes the following 15 parameters into account:
+        <ul>
+            <li>Average values of historical data (Total, year, quarter, month, week, weekday)</li>
+                <ul>
+                    <li>Total: all previous data points</li>
+                    <li>Year: all previous data points with same year as forecast to be made</li>
+                    <li>Quarter: all previous data points with same quarter as forecast to be made</li>
+                    <li>Month: all previous data points with same month as forecast to be made</li>
+                    <li>Week: all previous data points with same week as forecast to be made</li>
+                    <li>Weekday: all previous data points with same weekday as forecast to be made</li>
+                </ul>
+            <li>Past actual values (1-7 days ago, 28 (4*7) days ago, 364 (52*7) days ago)</li>
+                <ul>
+                    <li>1-7 days ago (7 variables)</li>
+                    <li>28(=4*7) days (~1 month) ago (1 variable)</li>
+                    <li>364(=52*7) days (~1 year) ago (1 variable)</li>
+                </ul>
+            <li>Calendar</li>
+        </ul>
+        And arrives at a value of: <b> {{ ml_prediction }} </b>
+    </p>
+
+     </div>
+</div>
+{% comment %}
+{% if player.ctrl_treat == 'control' %}
+
+{% elif player.ctrl_treat == 'treatment' %}
+    This is how important single features are to the algorithm:
+{% else %}
+    Didn't work
+{% endif %}
+{% endcomment %}
+
+
+<div class="card bg-light instructions">
+    <div class="card-body">
+
+        <table class="table">
+                <tr>
+                    <td>Your previous forecast was: <br/>
+                        <b>{{ player.F1_Initial }}</b></td>
+                        <td>{% formfield player.F1_Revised_Treat %}</td>
+
+                </tr>
+        </table>
+    </div>
+</div>
+
+    {% next_button %}
+{% endblock %}
